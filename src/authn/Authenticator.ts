@@ -1,10 +1,12 @@
 import { Jose } from "jose-jwe-jws";
 import oidcTokenHash from "oidc-token-hash";
-import { generateRandomString } from "./random";
-import _debug from "debug";
+
 import AccessTokenResponse from "./AccessTokenResponse";
 import Authentication from "./Authentication";
+import { generateRandomString } from "./random";
 import { IdTokenFields } from "./userinfo";
+
+import _debug from "debug";
 const debug = _debug("Authenticator");
 
 /**
@@ -29,7 +31,7 @@ export interface StartLoginResponse {
   /**
    * Nonce issued timestamp.
    */
-  nonceIssuedAt: Date;
+  nonceIssuedAt: number;
 }
 
 /**
@@ -79,7 +81,6 @@ export default class Authenticator {
   private jwskUri: URL;
   private redirectUri: URL;
   private clientId: string;
-  private logoutPath: string;
   private scope: string;
 
   /**
@@ -90,8 +91,6 @@ export default class Authenticator {
    * @param jwksUri URL of identity provider endpoint for JWKS key service.
    * @param clientId OAuth client id used by this application when communicating with the IdP.
    * @param redirectUri OAuth redirect_uri for redirecting back to this application from the IdP.
-   * @param logoutPath Local route path of this application for logout requests and logout
-   *    responses from the IdP.
    */
   public constructor(
     authnUri: URL,
@@ -100,7 +99,6 @@ export default class Authenticator {
     jwksUri: URL,
     clientId: string,
     redirectUri: URL,
-    logoutPath: string,
     scope: string = Authenticator.DEFAULT_SCOPE
   ) {
     this.authnUri = authnUri;
@@ -109,7 +107,6 @@ export default class Authenticator {
     this.jwskUri = jwksUri;
     this.clientId = clientId;
     this.redirectUri = redirectUri;
-    this.logoutPath = logoutPath;
     this.scope = scope;
   }
 
@@ -152,7 +149,7 @@ export default class Authenticator {
     return {
       url: authnUrl,
       nonce,
-      nonceIssuedAt,
+      nonceIssuedAt: nonceIssuedAt.getTime(),
       codeVerifier,
     };
   }
@@ -306,7 +303,7 @@ export default class Authenticator {
    * @param startLoginResponse Initial state built when starting the authentication flow.
    */
   private ensureNonceIsValid(startLoginResponse: StartLoginResponse): void {
-    if (!this.isNonceValid(startLoginResponse.nonceIssuedAt)) {
+    if (!this.isNonceValid(new Date(startLoginResponse.nonceIssuedAt))) {
       throw new AuthenticationError(
         "nonce_expired",
         "Getting response from the identity provider took too long, OpenID Connect nonce has expired"

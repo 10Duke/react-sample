@@ -18,7 +18,7 @@ export default class Authentication {
   /**
    * Authenticated timestamp.
    */
-  private authenticated: Date;
+  private authenticated: number;
 
   /**
    * Opaque state carried through the authentication process.
@@ -35,7 +35,7 @@ export default class Authentication {
     accessTokenResponse: AccessTokenResponse,
     idToken: IdTokenFields,
     state?: string,
-    authenticated: Date = new Date()
+    authenticated: number = new Date().getTime()
   ) {
     this.accessTokenResponse = accessTokenResponse;
     this.idToken = idToken;
@@ -153,7 +153,7 @@ export default class Authentication {
    * Gets authenticated timestamp, i.e. timestamp when authentication received from the server.
    */
   public getAuthenticated(): Date {
-    return this.authenticated;
+    return new Date(this.authenticated);
   }
 
   /**
