@@ -16,6 +16,7 @@ function LoginCb() {
 
   const query = useQuery();
   const code = query.get("code");
+  const state = query.get("state") || undefined;
 
   useEffect(() => {
     if (!code) {
@@ -26,13 +27,12 @@ function LoginCb() {
       throw Error("missing stored login state");
     }
     const startLoginState = JSON.parse(storedLoginState) as StartLoginResponse;
-    const state = query.get("state") || undefined;
 
     const authenticator = createAuthenticator();
     authenticator
       .completeAuthentication(startLoginState, code, state)
       .then((authn) => setAuthentication(authn));
-  }, [code]);
+  }, [code, state]);
 
   return (
     <div>Logged in as {authentication?.getUserDisplayName() || "N/A"}</div>
