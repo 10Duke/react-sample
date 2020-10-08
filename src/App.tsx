@@ -9,6 +9,7 @@ import Home from "./Home";
 import Login from "./Login";
 import LoginCb from "./LoginCb";
 import Authentication from "./authn/Authentication";
+import SignoutCb from "./SignoutCb";
 
 export interface AuthProps {
   authentication?: Authentication
@@ -24,6 +25,8 @@ function App() {
   const setAuthentication = (a:Authentication | undefined) => {
     setAuthenticationState(a);
     if (a && (location.pathname.endsWith('/login') || location.pathname.endsWith('/logincb'))) {
+      history.push('/');
+    } else if (!a && (location.pathname.endsWith('/signoutcb'))) {
       history.push('/');
     }
   }
@@ -108,6 +111,10 @@ function App() {
             <Route path="/logincb">
               <LoginCb {...authProps} />
             </Route>
+            <Route path="/signoutcb">
+              <SignoutCb {...authProps} />
+            </Route>
+
           </Switch>
         </main>
     </>

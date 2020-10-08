@@ -16,7 +16,7 @@ function Page(props: PageProps) {
     return (
         <article className={actualClass} {...other}>
             { header &&
-                <header className={'page-header'}>
+                <header className={'page-header text-center border-bottom'}>
                     {header}
                 </header>
             }
