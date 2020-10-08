@@ -1,24 +1,20 @@
 import React from "react";
-import logo from "./logo.svg";
+import Page from "./Page";
+import {AuthProps} from "./App";
 
-function Home() {
+interface HomeProps  extends AuthProps {}
+function Home(props: HomeProps) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Page
+          header={
+              <h1>Home</h1>
+          }
+          footer={
+              <p>Something</p>
+          }
+      >
+          yay
+      </Page>
   );
 }
 

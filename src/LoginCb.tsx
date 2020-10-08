@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import Authentication from "./authn/Authentication";
 import { StartLoginResponse } from "./authn/Authenticator";
 import createAuthenticator from "./authn/createAuthenticator";
+import {AuthProps} from "./App";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-
-function LoginCb() {
-  const [authentication, setAuthentication] = useState<
-    Authentication | undefined
-  >(undefined);
+interface LoginCbProps  extends AuthProps {}
+function LoginCb(props: LoginCbProps) {
+  const {authentication, setAuthentication} = props;
 
   const query = useQuery();
   const code = query.get("code");

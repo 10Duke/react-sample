@@ -1,0 +1,32 @@
+@import "./scss/component-base";
+
+.processing
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($dark, 0.5);
+  & > div {
+
+    display: inline-block;
+    position: absolute;
+    padding-left: map-get($spacers, 4);
+    padding-right: map-get($spacers, 4);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    color: $text-muted;
+    background-color: $light;
+    @include box-shadow($box-shadow);
+  }
+  .processing-content
+  {
+    margin-top: map-get($spacers, 4);
+    font-weight: $font-weight-bold;
+    &:empty {
+      display: none;
+    }
+  }
+}
