@@ -16,4 +16,5 @@ FROM nginx:alpine
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=certs certs /usr/share/nginx/certs
 COPY --from=build build /usr/share/nginx/html
+COPY package.json /usr/share/nginx/html/
 EXPOSE 80 443
