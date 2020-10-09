@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  frontend:
+    image: duke-test-client
+    build: .
+    ports:
+      - "48081:80"
+      - "48444:443"
+    # Uncomment the volumes to easily test changes in development
+    # volumes:
+    #   - ./build:/usr/share/nginx/html:ro
+    #   - ./nginx/conf.d:/etc/nginx/conf.d:ro
