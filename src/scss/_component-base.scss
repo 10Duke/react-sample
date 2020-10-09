@@ -1,6 +1,25 @@
 
 $enable-shadows:                              true;
 $link-hover-decoration:                       none;
+$primary: #f9d616;
+$warning: $primary;
+$secondary: #00ccff;
+$danger: #f74902;
+$body-bg: #111111;
+$body-color: #f9f9f9;
+$card-bg: lighten($body-bg, 10%);
+
+$font-family-base: 'Press Start 2P', sans-serif;
+
+$headings-font-weight: bolder;
+$headings-color: $primary;
+
+$enable-rounded: false;
+
+
+$border-width:                2px !default;
+$border-color:                $primary !default;
+
 // Import Bootstrap and its default variables
 
 @import "~bootstrap/scss/functions";

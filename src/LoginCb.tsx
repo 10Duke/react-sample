@@ -25,12 +25,14 @@ function LoginCb(props: LoginCbProps) {
     if (!storedLoginState) {
       throw Error("missing stored login state");
     }
+    console.log('storedLoginState %o', storedLoginState);
+    console.log('state %o', state);
     const startLoginState = JSON.parse(storedLoginState) as StartLoginResponse;
 
     const authenticator = createAuthenticator();
     authenticator
       .completeAuthentication(startLoginState, code, state)
-      .then((authn) => setAuthentication(authn));
+      .then((authn) => setAuthentication(authn, state));
   }, [code, state]);
 
   return (

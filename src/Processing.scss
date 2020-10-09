@@ -8,18 +8,16 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba($dark, 0.5);
-  & > div {
+  & > .processing-indicator {
 
     display: inline-block;
     position: absolute;
-    padding-left: map-get($spacers, 4);
-    padding-right: map-get($spacers, 4);
+    padding: map-get($spacers, 4);
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    color: $text-muted;
-    background-color: $light;
-    @include box-shadow($box-shadow);
+    background: rgba(#000, 0.75);
+    width: 100%;
   }
   .processing-content
   {
@@ -28,5 +26,15 @@
     &:empty {
       display: none;
     }
+  }
+  .processing-indicator .blink
+  {
+
+    animation: blinker 1s linear infinite;
+  }
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
   }
 }

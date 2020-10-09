@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Page from "./Page";
 import {AuthProps} from "./App";
 import LoginToContinue from "./LoginToContinue";
@@ -21,27 +20,30 @@ function Home(props: HomeProps) {
                 {authentication && (
                     <div className="card-deck">
                         <ExampleCard
-                            link={'/test'}
-                            header={'Example Name'}
+                            link={'/ex1'}
+                            header={'2048'}
+                            image={'/2048/meta/apple-touch-startup-image-640x920.png'}
                         >
                             <p className="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                Join the numbers and get to the 2048 tile!
                             </p>
                         </ExampleCard>
                         <ExampleCard
-                            link={'/test2'}
-                            header={'Example Name 2'}
+                            link={'/ex2'}
+                            header={'Pacman Canvas'}
+                            image={'/pacman-canvas/img/instructions/instructions_scatter.PNG'}
                         >
                             <p className="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                An old classic, re-written in HTML5.
                             </p>
                         </ExampleCard>
                         <ExampleCard
-                            link={'/test3'}
-                            header={'Example Name 3'}
+                            link={'/ex3'}
+                            header={'React Simon Says'}
+                            image={'/react-simon-says/screenshot.png'}
                         >
                             <p className="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                After the blocks light up, players have to click the blocks in the same order as they light up in order to gain a point.
                             </p>
                         </ExampleCard>
                     </div>

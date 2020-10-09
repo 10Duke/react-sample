@@ -1,26 +1,32 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import createAuthenticator from "./authn/createAuthenticator";
 import {AuthProps} from "./App";
 import Page from "./Page";
 import Processing from "./Processing";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 
-interface LoginProps  extends AuthProps {}
+interface LoginProps  extends AuthProps {
+}
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 function Login(props: LoginProps) {
   const authenticator = createAuthenticator();
-  const { authentication }  = props;
-  async function startLogin() {
-    const startLoginState = await authenticator.startLogin();
+  const {
+    authentication,
+  }  = props;
+  let query = useQuery();
+  const next = query.get('then');
+  async function startLogin(state?:string) {
+    const startLoginState = await authenticator.startLogin(state);
     localStorage.setItem("startLoginState", JSON.stringify(startLoginState));
     window.location.href = startLoginState.url.toString();
   }
   useEffect(() => {
     if (!authentication) {
-      console.log('start login');
-      startLogin();
+      startLogin(next ? next : undefined);
     }
-  }, [authentication])
+  }, [authentication, next])
 
   return (
       <Page>

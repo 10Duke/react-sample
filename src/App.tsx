@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 
 import "./App.css";
 import Home from "./Home";
@@ -10,10 +8,13 @@ import Login from "./Login";
 import LoginCb from "./LoginCb";
 import Authentication from "./authn/Authentication";
 import SignoutCb from "./SignoutCb";
+import Example1 from "./Example1";
+import Example2 from "./Example2";
+import Example3 from "./Example3";
 
 export interface AuthProps {
   authentication?: Authentication
-  setAuthentication: (a?: Authentication) => void
+  setAuthentication: (a?: Authentication, navigateTo?:string) => void
 }
 
 function App() {
@@ -22,12 +23,20 @@ function App() {
   const [authentication, setAuthenticationState] = useState<
       Authentication | undefined
       >(undefined);
-  const setAuthentication = (a:Authentication | undefined) => {
+  const setAuthentication = (a?:Authentication, navigateTo?:string) => {
     setAuthenticationState(a);
     if (a && (location.pathname.endsWith('/login') || location.pathname.endsWith('/logincb'))) {
-      history.push('/');
+      if (navigateTo) {
+        history.push(navigateTo)
+      } else {
+        history.push('/');
+      }
     } else if (!a && (location.pathname.endsWith('/signoutcb'))) {
-      history.push('/');
+      if (navigateTo) {
+        history.push(navigateTo)
+      } else {
+        history.push('/');
+      }
     }
   }
   const authProps: AuthProps = { authentication, setAuthentication };
@@ -35,7 +44,12 @@ function App() {
       <>
         <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
           <LinkContainer to="/" exact={true}>
-            <a className="navbar-brand" >Navbar</a>
+            <a className="navbar-brand" >
+              <img src={'/logo.svg#arcade'} />
+              <span className={"brand-text"}>
+                Arcade
+              </span>
+            </a>
           </LinkContainer>
           <button
               className="navbar-toggler"
@@ -67,7 +81,6 @@ function App() {
               {authentication && (
                   <>
                     <li className="navbar-text">
-                      <FontAwesomeIcon icon={faUserCircle} className={'mr-2'}/>
                       {authentication.getUserDisplayName()}
                     </li>
                     <li className="nav-item">
@@ -100,7 +113,7 @@ function App() {
             */}
           </div>
         </nav>
-        <main role="main" className="container-fluid">
+        <main role="main" className="container-fluid flex-grow-1 d-flex flex-column">
           <Switch>
             <Route exact path="/">
               <Home {...authProps} />
@@ -113,6 +126,15 @@ function App() {
             </Route>
             <Route path="/signoutcb">
               <SignoutCb {...authProps} />
+            </Route>
+            <Route path="/ex1">
+              <Example1 {...authProps} />
+            </Route>
+            <Route path="/ex2">
+              <Example2 {...authProps} />
+            </Route>
+            <Route path="/ex3">
+              <Example3 {...authProps} />
             </Route>
 
           </Switch>
