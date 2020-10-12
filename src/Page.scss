@@ -37,8 +37,5 @@
 
 .page-header .page-header-tools
 {
-  position: absolute;
-  right: map-get($spacers, 2);
-  top: map-get($spacers, 2);
-  margin-top: map-get($spacers, 1); // to align buttons nicely with h1
+  float: right;
 }

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 
-import "./App.css";
+import "./App.scss";
 import Home from "./Home";
 import Login from "./Login";
 import LoginCb from "./LoginCb";
@@ -11,6 +11,9 @@ import SignoutCb from "./SignoutCb";
 import Example1 from "./Example1";
 import Example2 from "./Example2";
 import Example3 from "./Example3";
+import Logout from "./Logout";
+
+const ProfileIcon = require("./si_icon.svg");
 
 export interface AuthProps {
   authentication?: Authentication
@@ -40,6 +43,7 @@ function App() {
     }
   }
   const authProps: AuthProps = { authentication, setAuthentication };
+  const [navbarCollapsed, setNavbarCollapsed] = useState(true);
   return (
       <>
         <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -55,18 +59,20 @@ function App() {
               className="navbar-toggler"
               type="button"
               data-toggle="collapse"
-              data-target="#navbarsExampleDefault"
-              aria-controls="navbarsExampleDefault"
-              aria-expanded="false"
+              data-target="#navbarCollapse"
+              aria-controls="navbarCollapse"
+              aria-expanded={!navbarCollapsed}
               aria-label="Toggle navigation"
+              onClick={() => {setNavbarCollapsed(!navbarCollapsed)}}
+              data-test-navbar-toggle
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarsExampleDefault">
+          <div className={'collapse navbar-collapse' + (!navbarCollapsed ? ' show' : '')} id="navbarCollapse">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
                 <LinkContainer to="/" exact={true}>
-                  <a className={'nav-link'}>Home</a>
+                  <a data-test-navbar-home className={'nav-link'}>Home</a>
                 </LinkContainer>
               </li>
             </ul>
@@ -74,18 +80,19 @@ function App() {
               {!authentication && (
                   <li className="nav-item">
                     <LinkContainer to="/login" exact={true}>
-                      <a className={'nav-link'}>Login</a>
+                      <a data-test-navbar-login className={'nav-link'}>Login</a>
                     </LinkContainer>
                   </li>
               )}
               {authentication && (
                   <>
-                    <li className="navbar-text">
+                    <li data-test-navbar-logged-in className="navbar-text profile mr-md-4">
+                      <img src={ProfileIcon} className="d-inline-block mr-3" />
                       {authentication.getUserDisplayName()}
                     </li>
                     <li className="nav-item">
                       <LinkContainer to="/logout" exact={true}>
-                        <a className={'nav-link'}>Logout</a>
+                        <a data-test-navbar-logout className={'nav-link bg-secondary text-white p-2 d-inline-block'}>Logout</a>
                       </LinkContainer>
                     </li>
                   </>
@@ -123,6 +130,9 @@ function App() {
             </Route>
             <Route path="/logincb">
               <LoginCb {...authProps} />
+            </Route>
+            <Route path="/logout">
+              <Logout {...authProps} />
             </Route>
             <Route path="/signoutcb">
               <SignoutCb {...authProps} />

@@ -3,6 +3,7 @@ import {AuthProps} from "./App";
 import Page from "./Page";
 import LoginToContinue from "./LoginToContinue";
 import GetLicense from "./GetLicense";
+import ReleaceLicense from "./ReleaseLicense";
 
 interface Example3Props  extends AuthProps {}
 function Example3(props:Example3Props) {
@@ -12,17 +13,18 @@ function Example3(props:Example3Props) {
     const hasLicense = authentication && true;
     return (
         <Page
+            data-test-page-product-3
             header={<>
-                <h1 className={'d-inline-block'}>
+                <h1>
                     React Simon Says
                 </h1>
                 {hasLicense && (
-                    <button type={'button'} className={'btn btn-sm btn-secondary page-header-tools'} onClick={() => {alert('TODO')}}>Release license</button>
+                    <ReleaceLicense />
                 )}
             </>}
         >
             {authentication && (<>
-                <iframe src={'/react-simon-says/public/index.html'} />
+                <iframe src={'/react-simon-says/index.html'} />
                 {!hasLicense && (
                     <GetLicense />
                 )}

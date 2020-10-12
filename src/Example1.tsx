@@ -3,6 +3,7 @@ import {AuthProps} from "./App";
 import Page from "./Page";
 import LoginToContinue from "./LoginToContinue";
 import GetLicense from "./GetLicense";
+import ReleaceLicense from "./ReleaseLicense";
 
 interface Example1Props  extends AuthProps {}
 function Example1(props:Example1Props) {
@@ -12,12 +13,13 @@ function Example1(props:Example1Props) {
     const hasLicense = authentication && true;
     return (
         <Page
+            data-test-page-product-1
             header={<>
-                <h1 className={'d-inline-block'}>
+                <h1>
                     2048
                 </h1>
                 {hasLicense && (
-                    <button type={'button'} className={'btn btn-sm btn-secondary page-header-tools'} onClick={() => {alert('TODO')}}>Release license</button>
+                    <ReleaceLicense />
                 )}
             </>}
         >

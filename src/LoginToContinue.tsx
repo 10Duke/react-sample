@@ -1,14 +1,17 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import ExampleCard from "./ExampleCard";
 
 function LoginToContinue() {
     const location = useLocation();
     return (
-        <div className={"login-to-continue text-center"}>
+        <div
+            data-test-login-to-continue
+            className={"login-to-continue text-center"}>
             <p>
                 This content is reserved for members only
             </p>
-            <Link to={"/login?then=" + location.pathname} className={'btn btn-lg btn-primary'}>
+            <Link data-test-login-trigger to={"/login?then=" + location.pathname} className={'btn btn-lg btn-primary'}>
                 Login to continue
             </Link>
         </div>
