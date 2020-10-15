@@ -5,26 +5,23 @@
     .navbar-dark &.navbar-text
     {
         color: $primary;
-
     }
-    img {
+    img
+    {
         height: 1.5em;
         vertical-align: top;
     }
-
 }
 
-@media (max-width: map-get($grid-breakpoints, 'md') - 1px) {
-
-.navbar-expand-md .navbar-collapse
+@media (max-width: map-get($grid-breakpoints, 'md') - 1px)
 {
-    margin-top: map-get($spacers, 2);
-    .nav-item,
-    .navbar-text
+    .navbar-expand-md .navbar-collapse
     {
-        text-align: right;
+        margin-top: map-get($spacers, 2);
+        .nav-item,
+        .navbar-text
+        {
+            text-align: right;
+        }
     }
-
-}
-
 }

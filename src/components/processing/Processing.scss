@@ -8,7 +8,9 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba($dark, 0.5);
-  & > .processing-indicator {
+
+  & > .processing-indicator
+  {
 
     display: inline-block;
     position: absolute;
@@ -19,11 +21,13 @@
     background: rgba(#000, 0.75);
     width: 100%;
   }
+
   .processing-content
   {
     margin-top: map-get($spacers, 4);
     font-weight: $font-weight-bold;
-    &:empty {
+    &:empty
+    {
       display: none;
     }
   }
@@ -34,7 +38,8 @@
   }
 }
 @keyframes blinker {
-  50% {
+  50%
+  {
     opacity: 0;
   }
 }

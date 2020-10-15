@@ -5,6 +5,12 @@ import LoginToContinue from "../login-to-continue";
 import ExampleCard from "../example-card";
 
 interface HomeProps  extends AuthProps {}
+
+/**
+ * Renders the home page content or login-to-continue
+ * @param props
+ * @constructor
+ */
 function HomePage(props: HomeProps) {
     const {
         authentication,

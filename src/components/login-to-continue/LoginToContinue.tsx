@@ -1,6 +1,10 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
+/**
+ * Renders a login to continue message, with a login trigger
+ * @constructor
+ */
 function LoginToContinue() {
     const location = useLocation();
     return (

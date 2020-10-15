@@ -9,7 +9,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 _debug.enable("*");
 localStorage.setItem("debug", "*");
-
+// Router moved here as location access is needed in App, and it's only accessible from router children
 ReactDOM.render(
   <React.StrictMode>
       <Router>

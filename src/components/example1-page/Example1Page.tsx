@@ -5,7 +5,13 @@ import LoginToContinue from "../login-to-continue";
 import GetLicense from "../get-license";
 import ReleaseLicense from "../release-license";
 
-interface Example1Props  extends AuthProps {}
+interface Example1Props extends AuthProps {}
+
+/**
+ * Renders example content or login-to-continue
+ * @param props
+ * @constructor
+ */
 function Example1Page(props: Example1Props) {
     const {
         authentication,

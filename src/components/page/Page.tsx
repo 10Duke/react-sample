@@ -1,9 +1,21 @@
 import React, {ReactNode} from "react";
 import "./Page.scss"
 interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
+    /**
+     * Optional header for the page
+     */
     header?: ReactNode,
+    /**
+     * Optional footer for the page
+     */
     footer?: ReactNode,
 }
+
+/**
+ * Renders a page, ensuring consistency over all pages
+ * @param props
+ * @constructor
+ */
 function Page(props: PageProps) {
     const {
         children,

@@ -6,6 +6,13 @@ import Processing from "../processing";
 import useQuery from "../../utils/use-query";
 
 interface LoginProps  extends AuthProps {}
+
+/**
+ * Triggers the login process, renders just a processing indicator as the login process will cause redirects,
+ * eventually to  login-cb-page
+ * @param props
+ * @constructor
+ */
 function LoginPage(props: LoginProps) {
   const authenticator = createAuthenticator();
   const {

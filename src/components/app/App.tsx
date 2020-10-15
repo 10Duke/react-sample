@@ -15,11 +15,26 @@ import LogoutPage from "../logout-page";
 import "./App.scss";
 const ProfileIcon = require("./si_icon.svg");
 
+/**
+ * Authentication related properties for components
+ */
 export interface AuthProps {
+    /**
+     * Authentication status
+     */
     authentication?: Authentication
+    /**
+     * Callback for updating authentication status
+     * @param a New status to set
+     * @param navigateTo PAth to navigate to after update
+     */
     setAuthentication: (a?: Authentication, navigateTo?:string) => void
 }
 
+/**
+ * Main app, responsible for storing authentication status and routing as well as main navigation.
+ * @constructor
+ */
 function App() {
     const location = useLocation();
     const history = useHistory();

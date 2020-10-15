@@ -3,11 +3,25 @@ import {Link} from "react-router-dom";
 import "./ExampleCard.scss";
 
 interface ExampleCardProps extends React.HTMLAttributes<HTMLDivElement> {
+    /**
+     * Card header
+     */
     header?: ReactNode,
+    /**
+     * card image
+     */
     image?: string,
+    /**
+     * link target for the card
+     */
     link: string,
 }
 
+/**
+ * Conponent for rendering example content as a card for home-page
+ * @param props
+ * @constructor
+ */
 function ExampleCard(props: ExampleCardProps) {
     const {
         header,

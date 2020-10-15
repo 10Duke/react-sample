@@ -6,6 +6,13 @@ import useQuery from "../../utils/use-query";
 import Page from "../page";
 
 interface LoginCbProps extends AuthProps {}
+
+/**
+ * Login callback page for getting the login state. Updates authentication status, which in turn triggers navigation,
+ * causing this page content to never actually being visible.
+ * @param props
+ * @constructor
+ */
 function LoginCbPage(props: LoginCbProps) {
   const {authentication, setAuthentication} = props;
 

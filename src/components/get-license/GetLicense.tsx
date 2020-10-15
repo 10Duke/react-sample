@@ -1,5 +1,10 @@
 import React from "react";
 import "./GetLicense.scss";
+
+/**
+ * Component for rendering a get license button with content covering mask on top of actual content.
+ * @constructor
+ */
 function GetLicense() {
     return (
         <div

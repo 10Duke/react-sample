@@ -1,4 +1,9 @@
 import React from "react";
+
+/**
+ * Renders a release license button
+ * @constructor
+ */
 function ReleaseLicense() {
     return (
         <button
