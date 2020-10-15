@@ -1,4 +1,12 @@
+Test/Demo client for 10Duke Identity and Licensing services. 
+
+All "licensed" views are actually just open source browser games, embedded here as demo content. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## TODO: instructions for runnable setup
+
+
 
 ## Available Scripts
 
