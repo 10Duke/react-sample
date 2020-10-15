@@ -76,7 +76,7 @@ h2,
 {
   text-transform: uppercase;
   letter-spacing: 0.125em;
-  text-shadow: 0.1em 0.1em 0 rgba($danger,0.5);
+  text-shadow: 0.1em 0.1em 0 rgba($danger, 0.5);
 }
 .nav-link
 {
@@ -89,14 +89,6 @@ h2,
   font-weight: $headings-font-weight;
   font-family: $headings-font-family;
   text-shadow: 0.1em 0.1em 0 rgba($dark, 0.5);
-  /*
-  &.btn-secondary {
-    text-shadow: 0.1em 0.1em 0 mix($dark, $secondary, 50%);
-  }
-  &.btn-primary {
-    text-shadow: 0.1em 0.1em 0 mix($dark, $primary, 50%);
-  }
-   */
 }
 [class*="btn-outline-"] {
   box-shadow: 0 0 0.5em 0px, 0 0 0 1px inset;

@@ -1,12 +1,12 @@
 import React from "react";
-import {AuthProps} from "./App";
-import Page from "./Page";
-import LoginToContinue from "./LoginToContinue";
-import GetLicense from "./GetLicense";
-import ReleaceLicense from "./ReleaseLicense";
+import { AuthProps } from "../app";
+import Page from "../page";
+import LoginToContinue from "../login-to-continue";
+import GetLicense from "../get-license";
+import ReleaseLicense from "../release-license";
 
 interface Example1Props  extends AuthProps {}
-function Example1(props:Example1Props) {
+function Example1Page(props: Example1Props) {
     const {
         authentication,
     } = props;
@@ -19,7 +19,7 @@ function Example1(props:Example1Props) {
                     2048
                 </h1>
                 {hasLicense && (
-                    <ReleaceLicense />
+                    <ReleaseLicense />
                 )}
             </>}
         >
@@ -35,4 +35,4 @@ function Example1(props:Example1Props) {
         </Page>
     )
 }
-export default Example1;
+export default Example1Page;

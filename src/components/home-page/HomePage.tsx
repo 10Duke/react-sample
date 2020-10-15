@@ -1,11 +1,11 @@
 import React from "react";
-import Page from "./Page";
-import {AuthProps} from "./App";
-import LoginToContinue from "./LoginToContinue";
-import ExampleCard from "./ExampleCard";
+import Page from "../page";
+import { AuthProps } from "../app";
+import LoginToContinue from "../login-to-continue";
+import ExampleCard from "../example-card";
 
 interface HomeProps  extends AuthProps {}
-function Home(props: HomeProps) {
+function HomePage(props: HomeProps) {
     const {
         authentication,
     } = props;
@@ -61,4 +61,4 @@ function Home(props: HomeProps) {
   );
 }
 
-export default Home;
+export default HomePage;

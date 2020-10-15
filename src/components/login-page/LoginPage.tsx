@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import createAuthenticator from "./authn/createAuthenticator";
-import {AuthProps} from "./App";
-import Page from "./Page";
-import Processing from "./Processing";
+import createAuthenticator from "../../authn/createAuthenticator";
+import { AuthProps } from "../app";
+import Page from "../page";
+import Processing from "../processing";
+import useQuery from "../../utils/use-query";
 
-interface LoginProps  extends AuthProps {
-}
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-function Login(props: LoginProps) {
+interface LoginProps  extends AuthProps {}
+function LoginPage(props: LoginProps) {
   const authenticator = createAuthenticator();
   const {
     authentication,
@@ -30,11 +26,9 @@ function Login(props: LoginProps) {
 
   return (
       <Page>
-        <Processing>
-          Prosessing...
-        </Processing>
+        <Processing />
       </Page>
   );
 }
 
-export default Login;
+export default LoginPage;

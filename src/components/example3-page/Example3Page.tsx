@@ -1,12 +1,12 @@
 import React from "react";
-import {AuthProps} from "./App";
-import Page from "./Page";
-import LoginToContinue from "./LoginToContinue";
-import GetLicense from "./GetLicense";
-import ReleaceLicense from "./ReleaseLicense";
+import {AuthProps} from "../app";
+import Page from "../page";
+import LoginToContinue from "../login-to-continue";
+import GetLicense from "../get-license";
+import ReleaseLicense from "../release-license";
 
 interface Example3Props  extends AuthProps {}
-function Example3(props:Example3Props) {
+function Example3Page(props: Example3Props) {
     const {
         authentication,
     } = props;
@@ -19,7 +19,7 @@ function Example3(props:Example3Props) {
                     React Simon Says
                 </h1>
                 {hasLicense && (
-                    <ReleaceLicense />
+                    <ReleaseLicense />
                 )}
             </>}
         >
@@ -35,4 +35,4 @@ function Example3(props:Example3Props) {
         </Page>
     )
 }
-export default Example3;
+export default Example3Page;

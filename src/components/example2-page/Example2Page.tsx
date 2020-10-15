@@ -1,12 +1,12 @@
 import React from "react";
-import {AuthProps} from "./App";
-import Page from "./Page";
-import LoginToContinue from "./LoginToContinue";
-import GetLicense from "./GetLicense";
-import ReleaceLicense from "./ReleaseLicense";
+import {AuthProps} from "../app";
+import Page from "../page";
+import LoginToContinue from "../login-to-continue";
+import GetLicense from "../get-license";
+import ReleaseLicense from "../release-license";
 
 interface Example2Props  extends AuthProps {}
-function Example2(props:Example2Props) {
+function Example2Page(props: Example2Props) {
     const {
         authentication,
     } = props;
@@ -19,7 +19,7 @@ function Example2(props:Example2Props) {
                     Pacman Canvas
                 </h1>
                 {hasLicense && (
-                    <ReleaceLicense />
+                    <ReleaseLicense />
                 )}
             </>}
         >
@@ -35,4 +35,4 @@ function Example2(props:Example2Props) {
         </Page>
     )
 }
-export default Example2;
+export default Example2Page;

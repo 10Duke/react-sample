@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import ExampleCard from "./ExampleCard";
 
 function LoginToContinue() {
     const location = useLocation();

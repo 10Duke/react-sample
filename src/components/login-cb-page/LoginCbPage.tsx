@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { StartLoginResponse } from "../../authn/Authenticator";
+import createAuthenticator from "../../authn/createAuthenticator";
+import { AuthProps } from "../app";
+import useQuery from "../../utils/use-query";
+import Page from "../page";
 
-import Authentication from "./authn/Authentication";
-import { StartLoginResponse } from "./authn/Authenticator";
-import createAuthenticator from "./authn/createAuthenticator";
-import {AuthProps} from "./App";
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-interface LoginCbProps  extends AuthProps {}
-function LoginCb(props: LoginCbProps) {
+interface LoginCbProps extends AuthProps {}
+function LoginCbPage(props: LoginCbProps) {
   const {authentication, setAuthentication} = props;
 
   const query = useQuery();
@@ -25,8 +21,6 @@ function LoginCb(props: LoginCbProps) {
     if (!storedLoginState) {
       throw Error("missing stored login state");
     }
-    console.log('storedLoginState %o', storedLoginState);
-    console.log('state %o', state);
     const startLoginState = JSON.parse(storedLoginState) as StartLoginResponse;
 
     const authenticator = createAuthenticator();
@@ -36,8 +30,8 @@ function LoginCb(props: LoginCbProps) {
   }, [code, state]);
 
   return (
-    <div>Logged in as {authentication?.getUserDisplayName() || "N/A"}</div>
+    <Page>Logged in as {authentication?.getUserDisplayName() || "N/A"}</Page>
   );
 }
 
-export default LoginCb;
+export default LoginCbPage;

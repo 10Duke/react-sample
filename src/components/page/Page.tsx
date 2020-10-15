@@ -1,6 +1,6 @@
 import React, {ReactNode} from "react";
 import "./Page.scss"
-export interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
+interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
     header?: ReactNode,
     footer?: ReactNode,
 }

@@ -1,5 +1,5 @@
 import React from "react";
-function ReleaceLicense() {
+function ReleaseLicense() {
     return (
         <button
             data-test-release-license-trigger
@@ -8,4 +8,4 @@ function ReleaceLicense() {
         >Release license</button>
     );
 }
-export default ReleaceLicense;
+export default ReleaseLicense;
