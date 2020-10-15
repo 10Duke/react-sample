@@ -1,0 +1,41 @@
+@import "./scss/component-base";
+
+.page
+{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  .page-header,
+  .page-content,
+  .page-footer
+  {
+    position: relative;
+    padding: map-get($spacers, 4) map-get($spacers, 2);
+  }
+  .page-content
+  {
+    flex-grow: 1;
+  }
+  .page-footer
+  {
+    color: $text-muted;
+    font-size: $font-size-sm;
+  }
+}
+
+.page-content iframe
+{
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  height: 100%;
+  position: absolute;
+}
+
+.page-header .page-header-tools
+{
+  float: right;
+}

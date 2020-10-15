@@ -1,0 +1,40 @@
+@import "./scss/component-base";
+
+.processing
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($dark, 0.5);
+  & > .processing-indicator {
+
+    display: inline-block;
+    position: absolute;
+    padding: map-get($spacers, 4);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(#000, 0.75);
+    width: 100%;
+  }
+  .processing-content
+  {
+    margin-top: map-get($spacers, 4);
+    font-weight: $font-weight-bold;
+    &:empty {
+      display: none;
+    }
+  }
+  .processing-indicator .blink
+  {
+
+    animation: blinker 1s linear infinite;
+  }
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

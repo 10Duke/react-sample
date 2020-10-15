@@ -1,24 +1,63 @@
 import React from "react";
-import logo from "./logo.svg";
+import Page from "./Page";
+import {AuthProps} from "./App";
+import LoginToContinue from "./LoginToContinue";
+import ExampleCard from "./ExampleCard";
 
-function Home() {
+interface HomeProps  extends AuthProps {}
+function Home(props: HomeProps) {
+    const {
+        authentication,
+    } = props;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <>
+          <Page
+              data-test-page-home
+              header={
+                  <h1>Welcome, {authentication ? authentication.getUserDisplayName() : 'Guest'}</h1>
+              }
+          >
+              <>
+                {authentication && (
+                    <div className="card-deck">
+                        <ExampleCard
+                            data-test-product-link
+                            link={'/ex1'}
+                            header={'2048'}
+                            image={'/2048/screenshot.png'}
+                        >
+                            <p className="card-text">
+                                Join the numbers and get to the 2048 tile!
+                            </p>
+                        </ExampleCard>
+                        <ExampleCard
+                            data-test-product-link
+                            link={'/ex2'}
+                            header={'Pacman Canvas'}
+                            image={'/pacman-canvas/img/instructions/instructions_scatter.PNG'}
+                        >
+                            <p className="card-text">
+                                An old classic, re-written in HTML5.
+                            </p>
+                        </ExampleCard>
+                        <ExampleCard
+                            data-test-product-link
+                            link={'/ex3'}
+                            header={'React Simon Says'}
+                            image={'/react-simon-says/screenshot.png'}
+                        >
+                            <p className="card-text">
+                                Click the blocks in the correct order as they light up.
+                            </p>
+                        </ExampleCard>
+                    </div>
+                )}
+                {!authentication && (
+                    <LoginToContinue />
+                )}
+              </>
+          </Page>
+      </>
   );
 }
 

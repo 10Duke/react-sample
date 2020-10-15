@@ -1,0 +1,5 @@
+**.db**
+**.bak
+*.db
+.idea/
+node_modules

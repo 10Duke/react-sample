@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import Authentication from "./authn/Authentication";
 import { StartLoginResponse } from "./authn/Authenticator";
 import createAuthenticator from "./authn/createAuthenticator";
+import {AuthProps} from "./App";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-
-function LoginCb() {
-  const [authentication, setAuthentication] = useState<
-    Authentication | undefined
-  >(undefined);
+interface LoginCbProps  extends AuthProps {}
+function LoginCb(props: LoginCbProps) {
+  const {authentication, setAuthentication} = props;
 
   const query = useQuery();
   const code = query.get("code");
@@ -26,12 +25,14 @@ function LoginCb() {
     if (!storedLoginState) {
       throw Error("missing stored login state");
     }
+    console.log('storedLoginState %o', storedLoginState);
+    console.log('state %o', state);
     const startLoginState = JSON.parse(storedLoginState) as StartLoginResponse;
 
     const authenticator = createAuthenticator();
     authenticator
       .completeAuthentication(startLoginState, code, state)
-      .then((authn) => setAuthentication(authn));
+      .then((authn) => setAuthentication(authn, state));
   }, [code, state]);
 
   return (
