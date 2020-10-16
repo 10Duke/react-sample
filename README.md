@@ -1,4 +1,30 @@
+Test/Demo client for 10Duke Identity and Licensing services.
+
+All "licensed" views are actually just open source browser games, embedded here as demo content.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Running locally (using dev server)
+
+First, make sure you have installed all dependencies of the test application with `npm install`.
+
+Add file named `.env.local` in the project root directory (this directory) on your machine. This file can be used for overriding configuration parameters of [.env](./.env) and to configure this application to run with your 10Duke server deployment. Example content of `.env.local`:
+
+```
+REACT_APP_SRV_BASE=https://my-10duke-accounts.example.com
+REACT_APP_CLIENT_ID=my-test-client
+```
+
+Here, `REACT_APP_SRV_BASE=https://my-10duke-accounts.example.com` points to your 10Duke Identity and Entitlement service. `REACT_APP_CLIENT_ID=my-test-client` specifies id of this this test client, as configured on the 10Duke service.
+
+In the 10Duke service, this test application must be configured as an OAuth client with these details:
+
+- Client id: As configured in `.env.local` (see above)
+- OAuth flow: PKCE (Authorization Code Grant flow with Proof Key for Code Exchange), client secret not used
+- Login callback URL: `http://localhost:3000/logincb`
+- Logout callback URL: `http://localhost:3000/signoutcb`
+
+Now you can run the test client locally using `npm start` (see below).
 
 ## Available Scripts
 
