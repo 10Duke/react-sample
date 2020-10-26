@@ -5,7 +5,14 @@ import Page from "../page";
 import Processing from "../processing";
 import useQuery from "../../utils/use-query";
 
-interface LoginProps  extends AuthProps {}
+interface LoginProps extends AuthProps {}
+
+async function startLogin(state?: string) {
+  const authenticator = createAuthenticator();
+  const startLoginState = await authenticator.startLogin(state);
+  localStorage.setItem("startLoginState", JSON.stringify(startLoginState));
+  window.location.href = startLoginState.url.toString();
+}
 
 /**
  * Triggers the login process, renders just a processing indicator as the login process will cause redirects,
@@ -14,27 +21,21 @@ interface LoginProps  extends AuthProps {}
  * @constructor
  */
 function LoginPage(props: LoginProps) {
-  const authenticator = createAuthenticator();
-  const {
-    authentication,
-  }  = props;
+  const { authentication } = props;
+
   let query = useQuery();
-  const next = query.get('then');
-  async function startLogin(state?:string) {
-    const startLoginState = await authenticator.startLogin(state);
-    localStorage.setItem("startLoginState", JSON.stringify(startLoginState));
-    window.location.href = startLoginState.url.toString();
-  }
+  const next = query.get("then");
+
   useEffect(() => {
     if (!authentication) {
       startLogin(next ? next : undefined);
     }
-  }, [authentication, next])
+  }, [authentication, next]);
 
   return (
-      <Page>
-        <Processing />
-      </Page>
+    <Page>
+      <Processing />
+    </Page>
   );
 }
 

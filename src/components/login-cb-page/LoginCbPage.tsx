@@ -14,7 +14,7 @@ interface LoginCbProps extends AuthProps {}
  * @constructor
  */
 function LoginCbPage(props: LoginCbProps) {
-  const {authentication, setAuthentication} = props;
+  const { authentication, setAuthentication } = props;
 
   const query = useQuery();
   const code = query.get("code");
@@ -29,12 +29,13 @@ function LoginCbPage(props: LoginCbProps) {
       throw Error("missing stored login state");
     }
     const startLoginState = JSON.parse(storedLoginState) as StartLoginResponse;
+    localStorage.removeItem("startLoginState");
 
     const authenticator = createAuthenticator();
     authenticator
       .completeAuthentication(startLoginState, code, state)
       .then((authn) => setAuthentication(authn, state));
-  }, [code, state]);
+  }, [code, state, setAuthentication]);
 
   return (
     <Page>Logged in as {authentication?.getUserDisplayName() || "N/A"}</Page>
