@@ -37,7 +37,7 @@ function LogoutPage(props: LogoutProps) {
   }, [authentication, next, setAuthentication]);
 
   return (
-    <Page header={<h1>TODO:</h1>}>
+    <Page>
       <Processing />
     </Page>
   );

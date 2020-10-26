@@ -42,7 +42,7 @@ function SignoutCbPage(props: SignoutCbProps) {
     }
   }, [success, state, setAuthentication]);
 
-  return <Page>TODO: implement logout callback</Page>;
+  return <Page>Logged out</Page>;
 }
 
 export default SignoutCbPage;
