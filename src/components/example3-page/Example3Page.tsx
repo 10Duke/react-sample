@@ -2,7 +2,7 @@ import React from "react";
 import {AuthProps} from "../app";
 import Page from "../page";
 import LoginToContinue from "../login-to-continue";
-import GetLicense from "../get-license";
+// import GetLicense from "../get-license";
 import ReleaseLicense from "../release-license";
 
 interface Example3Props extends AuthProps {}
@@ -32,7 +32,7 @@ function Example3Page(props: Example3Props) {
             {authentication && (<>
                 <iframe src={'/react-simon-says/index.html'} />
                 {!hasLicense && (
-                    <GetLicense />
+                    <h1 >awesome setup this</h1>
                 )}
             </>)}
             {!authentication && (

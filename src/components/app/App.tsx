@@ -13,7 +13,9 @@ import Example3Page from "../example3-page";
 import LogoutPage from "../logout-page";
 
 import "./App.scss";
+import {LicenseCheckResult} from "../../authn/LicenseChecker";
 const ProfileIcon = require("./si_icon.svg");
+const _ = require("lodash");
 
 /**
  * Authentication related properties for components
@@ -31,6 +33,14 @@ export interface AuthProps {
     setAuthentication: (a?: Authentication, navigateTo?:string) => void
 }
 
+interface LicenseStatus {
+    [licensedItem: string]: LicenseCheckResult
+}
+
+export interface LicenseProps {
+    licenseStatus: LicenseStatus,
+    updateLicenseStatus: (licensedItem: string, status: LicenseCheckResult) => void
+}
 /**
  * Main app, responsible for storing authentication status and routing as well as main navigation.
  * @constructor
@@ -41,6 +51,14 @@ function App() {
     const [authentication, setAuthenticationState] = useState<
         Authentication | undefined
         >(undefined);
+    const [licenseStatus, setLicenseStatus] = useState<
+        LicenseStatus
+        >({});
+    const updateLicenseStatus = (licensedItem: string, status: LicenseCheckResult) => {
+        const updatedState = _.cloneDeep(licenseStatus);
+        updatedState[licensedItem] = status;
+        setLicenseStatus(updatedState);
+    };
     const setAuthentication = (a?:Authentication, navigateTo?:string) => {
         setAuthenticationState(a);
         if (a && (location.pathname.endsWith('/login') || location.pathname.endsWith('/logincb'))) {
@@ -58,6 +76,7 @@ function App() {
         }
     }
     const authProps: AuthProps = { authentication, setAuthentication };
+    const licenseProps: LicenseProps = { licenseStatus, updateLicenseStatus };
     const [navbarCollapsed, setNavbarCollapsed] = useState(true);
     return (
         <>
@@ -133,7 +152,7 @@ function App() {
                         <SignoutCbPage {...authProps} />
                     </Route>
                     <Route path="/ex1">
-                        <Example1Page {...authProps} />
+                        <Example1Page {...authProps} {...licenseProps} />
                     </Route>
                     <Route path="/ex2">
                         <Example2Page {...authProps} />

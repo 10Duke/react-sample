@@ -2,7 +2,7 @@ import React from "react";
 import {AuthProps} from "../app";
 import Page from "../page";
 import LoginToContinue from "../login-to-continue";
-import GetLicense from "../get-license";
+// import GetLicense from "../get-license";
 import ReleaseLicense from "../release-license";
 
 interface Example2Props extends AuthProps {}
@@ -32,7 +32,7 @@ function Example2Page(props: Example2Props) {
             {authentication && (<>
                 <iframe src={'/pacman-canvas/index.html'} />
                 {!hasLicense && (
-                    <GetLicense />
+                    <h1 >awesome setup this</h1>
                 )}
             </>)}
             {!authentication && (
