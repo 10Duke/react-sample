@@ -35,6 +35,26 @@ export interface StartLoginResponse {
 }
 
 /**
+ * Response of start logout operation.
+ */
+export interface StartLogoutResponse {
+  /**
+   * URL where the browser must be directed for starting the logout process.
+   */
+  url: URL;
+}
+
+/**
+ * Response for handling a logout request received from the identity provider.
+ */
+export interface HandleLogoutRequestResponse {
+  /**
+   * URL where the browser must be directed for continuing the single sign-out process.
+   */
+  url: URL;
+}
+
+/**
  * Authentication error.
  */
 export class AuthenticationError extends Error {
@@ -191,6 +211,34 @@ export default class Authenticator {
     this.validateAccessTokenHash(responseJson.access_token, idToken);
 
     return new Authentication(responseJson, idToken, state);
+  }
+
+  /**
+   * Builds URL and state for starting single logout process against the identity provider.
+   * @param state Opaque state to carry through the authentication. The state is delivered as a parameter
+   * with the request sent to the identity provider for starting authentication, and the identity provider
+   * sends the state back when eventually returning to the redirect URI of this application.
+   */
+  public async startLogout(state?: string): Promise<StartLogoutResponse> {
+    const logoutUrl = this.buildIdpLogoutUrl(state);
+    return {
+      url: logoutUrl,
+    };
+  }
+
+  /**
+   * Builds URL for responding to a single sign-out request received from the identity provider.
+   * @param state Opaque state to carry through the authentication. The state is delivered as a parameter
+   * with the request sent to the identity provider for starting authentication, and the identity provider
+   * sends the state back when eventually returning to the redirect URI of this application.
+   */
+  public async handleLogoutRequest(
+    state?: string
+  ): Promise<HandleLogoutRequestResponse> {
+    const logoutResponseUrl = this.buildLogoutResponseToIdpUrl(state);
+    return {
+      url: logoutResponseUrl,
+    };
   }
 
   /**
@@ -389,5 +437,33 @@ export default class Authenticator {
     }
     authnUrl.search = query.toString();
     return authnUrl;
+  }
+
+  /**
+   * Builds URL for navigating to the identity provider for logout.
+   */
+  private buildIdpLogoutUrl(state?: string): URL {
+    let logoutUrl = new URL(this.sloUri.toString());
+    const query = logoutUrl.searchParams || new URLSearchParams();
+    query.append("client_id", this.clientId);
+    if (state) {
+      query.append("RelayState", state);
+    }
+    logoutUrl.search = query.toString();
+    return logoutUrl;
+  }
+
+  /**
+   * Builds URL for navigating to the identity provider after handling logout request
+   * received from the identity provider.
+   */
+  private buildLogoutResponseToIdpUrl(state?: string): URL {
+    let logoutResponseUrl = new URL(this.sloUri.toString());
+    const query = logoutResponseUrl.searchParams || new URLSearchParams();
+    if (state) {
+      query.append("RelayState", state);
+    }
+    logoutResponseUrl.search = query.toString();
+    return logoutResponseUrl;
   }
 }
