@@ -11,6 +11,13 @@ export interface LicenseCheckResult {
 }
 
 /**
+ * Result of a license release request.
+ */
+export interface LicenseReleaseResult {
+  [claim: string]: any;
+}
+
+/**
  * License checking / consuming error.
  */
 export class LicenseCheckError extends Error {
@@ -62,6 +69,16 @@ export default class LicenseChecker {
    * Consumes license.
    * @param licensedItem Name of licensed item to consume.
    * @param hw Hardware / device identifier.
+   * @returns Object with license check / consume result fields. If license granted,
+   *    the result contains field for the checked licensed item with boolean true value.
+   *    For example, if successfully consuming license for "myFeatureX", there is a result
+   *    field "myFeatureX": true. If license not granted, the result contains field
+   *    [licensedItem]_errorCode, for example "myFeatureX_errorCode": "License not granted error code".
+   *    In addition to the [licensedItem]_errorCode field, [licensedItem]_errorMessage and
+   *    [licensedItem]_errorTechnical are returned with additional information of the error.
+   *
+   *    For successful license consumption, "jti" field of the result contains id of lease
+   *    granted for the client. This value can be used later for releasing the license.
    */
   public async consumeLicense(
     licensedItem: string
@@ -90,6 +107,41 @@ export default class LicenseChecker {
     debug("Result fields for consume %s: %o", licensedItem, responseFields);
 
     return responseFields;
+  }
+
+  /**
+   * Releases a license consumption held by this client application.
+   * @param leaseId Id of the license lease to release, i.e. id of the consumption.
+   *    License consumption call returns this as value of the "jti" field.
+   * @returns Object with the license release call result fields. If released successfully,
+   *    the response object contains a field "[leaseId]" where [leaseId] is the leaseId
+   *    given as input to this method, and value of the field is true. For example, if leaseId is
+   *    455a9938-b44b-4ec5-876c-8b6aca39682a, then a successful license lease release result contains
+   *    "455a9938-b44b-4ec5-876c-8b6aca39682a": true.
+   */
+  public async releaseLicense(leaseId: string): Promise<LicenseReleaseResult> {
+    let url = new URL(this.authzUri.toString());
+    const query = url.searchParams || new URLSearchParams();
+    query.append("release", "true");
+    query.append(leaseId, "");
+    if (this.hw) {
+      query.append("hw", this.hw);
+    }
+    url.search = query.toString();
+    url.pathname = url.pathname + ".json";
+
+    const response = await fetch(url.toString(), {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    const responseJson = (await response.json()) as LicenseReleaseResult;
+    debug("Release result: %o", responseJson);
+
+    return responseJson;
   }
 
   /**
