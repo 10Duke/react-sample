@@ -1,5 +1,5 @@
 import React from "react";
-import {AuthProps, LicenseProps} from "../app";
+import { AuthProps, LicenseProps } from "../app";
 import Page from "../page";
 import LoginToContinue from "../login-to-continue";
 import ReleaseLicense from "../release-license";
@@ -21,33 +21,53 @@ interface Example2Props extends AuthProps, LicenseProps {}
  * @constructor
  */
 function Example2Page(props: Example2Props) {
-    const { authentication, licenseStatus, updateLicenseStatus, setAuthentication } = props;
-    const hasLicense = licenseStatus &&
-    licenseStatus[EXAMPLE_2_LICENSED_ITEM] &&
-    licenseStatus[EXAMPLE_2_LICENSED_ITEM][EXAMPLE_2_LICENSED_ITEM] !== undefined ?
-        (licenseStatus[EXAMPLE_2_LICENSED_ITEM][EXAMPLE_2_LICENSED_ITEM] === true ? true : false) :
-        (licenseStatus && licenseStatus[EXAMPLE_2_LICENSED_ITEM] ? false : undefined)
-    return (
-        <Page
-            data-test-page-product-2
-            header={<>
-                <h1>
-                    Pacman Canvas
-                </h1>
-                {hasLicense === true && <ReleaseLicense licensedItem={EXAMPLE_2_LICENSED_ITEM} licenseStatus={licenseStatus} updateLicenseStatus={updateLicenseStatus} authentication={authentication} setAuthentication={setAuthentication}/>}
-            </>}
-        >
-            {authentication && (<>
-                <iframe src={'/pacman-canvas/index.html'} />
-                {hasLicense === undefined && <GetLicense licensedItem={EXAMPLE_2_LICENSED_ITEM} licenseStatus={licenseStatus} updateLicenseStatus={updateLicenseStatus} authentication={authentication} setAuthentication={setAuthentication}/>}
-                {hasLicense === false && (
-                    <NoLicenseAvailable />
-                )}
-            </>)}
-            {!authentication && (
-                <LoginToContinue />
-            )}
-        </Page>
-    )
+  const {
+    authentication,
+    licenseStatus,
+    updateLicenseStatus,
+    setAuthentication,
+  } = props;
+  const licensedItem = EXAMPLE_2_LICENSED_ITEM;
+  const hasLicense = licenseStatus[licensedItem]
+    ? licenseStatus[licensedItem].hasLicense(licensedItem)
+    : undefined;
+
+  return (
+    <Page
+      data-test-page-product-2
+      header={
+        <>
+          <h1>Pacman Canvas</h1>
+          {hasLicense === true && (
+            <ReleaseLicense
+              licensedItem={EXAMPLE_2_LICENSED_ITEM}
+              licenseStatus={licenseStatus}
+              updateLicenseStatus={updateLicenseStatus}
+              authentication={authentication}
+              setAuthentication={setAuthentication}
+            />
+          )}
+        </>
+      }
+    >
+      {authentication && (
+        <>
+          <iframe src={"/pacman-canvas/index.html"} />
+          {hasLicense === undefined && (
+            <GetLicense
+              licensedItem={EXAMPLE_2_LICENSED_ITEM}
+              licenseStatus={licenseStatus}
+              updateLicenseStatus={updateLicenseStatus}
+              authentication={authentication}
+              setAuthentication={setAuthentication}
+            />
+          )}
+          {hasLicense === false && <NoLicenseAvailable />}
+        </>
+      )}
+      {!authentication && <LoginToContinue />}
+    </Page>
+  );
 }
+
 export default Example2Page;

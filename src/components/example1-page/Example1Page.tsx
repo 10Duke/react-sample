@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthProps,LicenseProps } from "../app";
+import { AuthProps, LicenseProps } from "../app";
 import Page from "../page";
 import LoginToContinue from "../login-to-continue";
 import GetLicense from "../get-license";
@@ -19,34 +19,53 @@ interface Example1Props extends AuthProps, LicenseProps {}
  * @constructor
  */
 function Example1Page(props: Example1Props) {
-  const { authentication, licenseStatus, updateLicenseStatus, setAuthentication } = props;
-  const hasLicense = licenseStatus &&
-      licenseStatus[EXAMPLE_1_LICENSED_ITEM] &&
-      licenseStatus[EXAMPLE_1_LICENSED_ITEM][EXAMPLE_1_LICENSED_ITEM] !== undefined ?
-      (licenseStatus[EXAMPLE_1_LICENSED_ITEM][EXAMPLE_1_LICENSED_ITEM] === true ? true : false) :
-      (licenseStatus && licenseStatus[EXAMPLE_1_LICENSED_ITEM] ? false : undefined)
-  ;
+  const {
+    authentication,
+    licenseStatus,
+    updateLicenseStatus,
+    setAuthentication,
+  } = props;
+  const licensedItem = EXAMPLE_1_LICENSED_ITEM;
+  const hasLicense = licenseStatus[licensedItem]
+    ? licenseStatus[licensedItem].hasLicense(licensedItem)
+    : undefined;
+
   return (
     <Page
       data-test-page-product-1
       header={
         <>
           <h1>2048</h1>
-          {hasLicense === true && <ReleaseLicense licensedItem={EXAMPLE_1_LICENSED_ITEM} licenseStatus={licenseStatus} updateLicenseStatus={updateLicenseStatus} authentication={authentication} setAuthentication={setAuthentication}/>}
+          {hasLicense === true && (
+            <ReleaseLicense
+              licensedItem={EXAMPLE_1_LICENSED_ITEM}
+              licenseStatus={licenseStatus}
+              updateLicenseStatus={updateLicenseStatus}
+              authentication={authentication}
+              setAuthentication={setAuthentication}
+            />
+          )}
         </>
       }
     >
       {authentication && (
         <>
           <iframe src={"/2048/index.html"} />
-          {hasLicense === undefined && <GetLicense licensedItem={EXAMPLE_1_LICENSED_ITEM} licenseStatus={licenseStatus} updateLicenseStatus={updateLicenseStatus} authentication={authentication} setAuthentication={setAuthentication}/>}
-          {hasLicense === false && (
-              <NoLicenseAvailable />
+          {hasLicense === undefined && (
+            <GetLicense
+              licensedItem={EXAMPLE_1_LICENSED_ITEM}
+              licenseStatus={licenseStatus}
+              updateLicenseStatus={updateLicenseStatus}
+              authentication={authentication}
+              setAuthentication={setAuthentication}
+            />
           )}
+          {hasLicense === false && <NoLicenseAvailable />}
         </>
       )}
       {!authentication && <LoginToContinue />}
     </Page>
   );
 }
+
 export default Example1Page;

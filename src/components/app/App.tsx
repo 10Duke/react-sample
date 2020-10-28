@@ -45,6 +45,7 @@ export interface LicenseProps {
     status: LicenseCheckResult | undefined
   ) => void;
 }
+
 /**
  * Main app, responsible for storing authentication status and routing as well as main navigation.
  * @constructor

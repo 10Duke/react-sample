@@ -6,15 +6,31 @@ const debug = _debug("LicenseChecker");
 /**
  * Result of a license check / consume request.
  */
-export interface LicenseCheckResult {
+export class LicenseCheckResult {
   [claim: string]: any;
+
+  /**
+   * Determines if this result grants license for the given licensed item.
+   * @param licensedItem The licensed item name.
+   */
+  public hasLicense(licensedItem: string): boolean {
+    return this[licensedItem] === true;
+  }
 }
 
 /**
  * Result of a license release request.
  */
-export interface LicenseReleaseResult {
+export class LicenseReleaseResult {
   [claim: string]: any;
+
+  /**
+   * Determines if this result shows that lease has been successfully released.
+   * @param leaseId The lease id.
+   */
+  public isReleased(leaseId: string): boolean {
+    return this[leaseId] === true;
+  }
 }
 
 /**
@@ -106,7 +122,7 @@ export default class LicenseChecker {
     const responseFields = await this.parseAndValidateJwt(responseJwt);
     debug("Result fields for consume %s: %o", licensedItem, responseFields);
 
-    return responseFields;
+    return Object.assign(new LicenseCheckResult(), responseFields);
   }
 
   /**
@@ -138,10 +154,10 @@ export default class LicenseChecker {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
-    const responseJson = (await response.json()) as LicenseReleaseResult;
+    const responseJson = await response.json();
     debug("Release result: %o", responseJson);
 
-    return responseJson;
+    return Object.assign(new LicenseReleaseResult(), responseJson);
   }
 
   /**
