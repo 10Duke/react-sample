@@ -14,7 +14,9 @@ import Example3Page from "../example3-page";
 import LogoutPage from "../logout-page";
 
 import "./App.scss";
+import { LicenseCheckResult } from "../../authn/LicenseChecker";
 const ProfileIcon = require("./si_icon.svg");
+const _ = require("lodash");
 
 /**
  * Authentication related properties for components
@@ -32,6 +34,17 @@ export interface AuthProps {
   setAuthentication: AuthenticationSetter;
 }
 
+interface LicenseStatus {
+  [licensedItem: string]: LicenseCheckResult;
+}
+
+export interface LicenseProps {
+  licenseStatus: LicenseStatus;
+  updateLicenseStatus: (
+    licensedItem: string,
+    status: LicenseCheckResult | undefined
+  ) => void;
+}
 /**
  * Main app, responsible for storing authentication status and routing as well as main navigation.
  * @constructor
@@ -42,6 +55,20 @@ function App() {
   const [authentication, setAuthenticationState] = useState<
     Authentication | undefined
   >(undefined);
+  const [licenseStatus, setLicenseStatus] = useState<LicenseStatus>({});
+
+  const updateLicenseStatus = (
+    licensedItem: string,
+    status: LicenseCheckResult | undefined
+  ) => {
+    const updatedState = _.cloneDeep(licenseStatus);
+    if (status !== undefined) {
+      updatedState[licensedItem] = status;
+    } else {
+      delete updatedState[licensedItem];
+    }
+    setLicenseStatus(updatedState);
+  };
 
   const setAuthentication = useMemo(
     () => (a?: Authentication, navigateTo?: string) => {
@@ -67,8 +94,9 @@ function App() {
     [setAuthenticationState]
   );
 
-  const [navbarCollapsed, setNavbarCollapsed] = useState(true);
   const authProps: AuthProps = { authentication, setAuthentication };
+  const licenseProps: LicenseProps = { licenseStatus, updateLicenseStatus };
+  const [navbarCollapsed, setNavbarCollapsed] = useState(true);
 
   return (
     <>
@@ -166,13 +194,13 @@ function App() {
             <SignoutCbPage {...authProps} />
           </Route>
           <Route path="/ex1">
-            <Example1Page {...authProps} />
+            <Example1Page {...authProps} {...licenseProps} />
           </Route>
           <Route path="/ex2">
-            <Example2Page {...authProps} />
+            <Example2Page {...authProps} {...licenseProps} />
           </Route>
           <Route path="/ex3">
-            <Example3Page {...authProps} />
+            <Example3Page {...authProps} {...licenseProps} />
           </Route>
         </Switch>
       </main>

@@ -1,24 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+
 import "./scss/styles.scss";
+
 import App from "./components/app";
 import * as serviceWorker from "./serviceWorker";
 
-import _debug from "debug";
-import { BrowserRouter as Router } from "react-router-dom";
+import debug from "debug";
 
-_debug.enable("*");
+debug.log = console.info.bind(console);
+debug.enable("*");
 localStorage.setItem("debug", "*");
 // Router moved here as location access is needed in App, and it's only accessible from router children
 ReactDOM.render(
   <React.StrictMode>
-      <Router>
-            <App />
-      </Router>
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
-
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

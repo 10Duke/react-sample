@@ -21,12 +21,12 @@ export default function createAuthenticator(
     process.env.REACT_APP_SRV_OAUTH_AUTHZ_URL || "/user/oauth20/authz",
     srvBase
   );
-  debug("authzUrl: %s", authzUrl.toString());
+  debug("OAuth authzUrl: %s", authzUrl.toString());
   const tokenUrl = new URL(
     process.env.REACT_APP_SRV_OAUTH_TOKEN_URL || "/user/oauth20/token",
     srvBase
   );
-  debug("tokenUrl: %s", tokenUrl.toString());
+  debug("OAuth tokenUrl: %s", tokenUrl.toString());
   const sloUrl = new URL(
     process.env.REACT_APP_SRV_SLO_URL || "/user/oauth20/signout",
     srvBase
