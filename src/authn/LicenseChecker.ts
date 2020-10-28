@@ -73,7 +73,9 @@ export default class LicenseChecker {
    *    the result contains field for the checked licensed item with boolean true value.
    *    For example, if successfully consuming license for "myFeatureX", there is a result
    *    field "myFeatureX": true. If license not granted, the result contains field
-   *    [licensedItem]_error, for example "myFeatureX_error": "License not granted error message".
+   *    [licensedItem]_errorCode, for example "myFeatureX_errorCode": "License not granted error code".
+   *    In addition to the [licensedItem]_errorCode field, [licensedItem]_errorMessage and
+   *    [licensedItem]_errorTechnical are returned with additional information of the error.
    *
    *    For successful license consumption, "jti" field of the result contains id of lease
    *    granted for the client. This value can be used later for releasing the license.
