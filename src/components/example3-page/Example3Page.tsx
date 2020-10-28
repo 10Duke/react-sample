@@ -3,7 +3,7 @@ import {AuthProps} from "../app";
 import Page from "../page";
 import LoginToContinue from "../login-to-continue";
 // import GetLicense from "../get-license";
-import ReleaseLicense from "../release-license";
+// import ReleaseLicense from "../release-license";
 
 interface Example3Props extends AuthProps {}
 
@@ -25,7 +25,7 @@ function Example3Page(props: Example3Props) {
                     React Simon Says
                 </h1>
                 {hasLicense && (
-                    <ReleaseLicense />
+                    <h1 >awesome setup this</h1>
                 )}
             </>}
         >

@@ -3,7 +3,7 @@ import {AuthProps} from "../app";
 import Page from "../page";
 import LoginToContinue from "../login-to-continue";
 // import GetLicense from "../get-license";
-import ReleaseLicense from "../release-license";
+// import ReleaseLicense from "../release-license";
 
 interface Example2Props extends AuthProps {}
 
@@ -25,7 +25,7 @@ function Example2Page(props: Example2Props) {
                     Pacman Canvas
                 </h1>
                 {hasLicense && (
-                    <ReleaseLicense />
+                    <h1 >awesome setup this</h1>
                 )}
             </>}
         >

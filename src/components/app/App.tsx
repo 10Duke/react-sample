@@ -34,7 +34,7 @@ export interface AuthProps {
 }
 
 interface LicenseStatus {
-    [licensedItem: string]: LicenseCheckResult
+    [licensedItem: string]: LicenseCheckResult|undefined
 }
 
 export interface LicenseProps {
@@ -54,7 +54,7 @@ function App() {
     const [licenseStatus, setLicenseStatus] = useState<
         LicenseStatus
         >({});
-    const updateLicenseStatus = (licensedItem: string, status: LicenseCheckResult) => {
+    const updateLicenseStatus = (licensedItem: string, status: LicenseCheckResult|undefined) => {
         const updatedState = _.cloneDeep(licenseStatus);
         updatedState[licensedItem] = status;
         setLicenseStatus(updatedState);

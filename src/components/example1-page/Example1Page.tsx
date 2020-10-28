@@ -30,7 +30,7 @@ function Example1Page(props: Example1Props) {
 
    */
   const hasLicense = licenseStatus &&
-      licenseStatus[EXAMPLE_1_LICENSED_ITEM] &&
+      licenseStatus[EXAMPLE_1_LICENSED_ITEM] !== undefined &&
       licenseStatus[EXAMPLE_1_LICENSED_ITEM][EXAMPLE_1_LICENSED_ITEM] !== undefined ?
       (licenseStatus[EXAMPLE_1_LICENSED_ITEM][EXAMPLE_1_LICENSED_ITEM] === true ? true : false) :
       (licenseStatus && licenseStatus[EXAMPLE_1_LICENSED_ITEM] ? false : undefined)
@@ -60,7 +60,7 @@ function Example1Page(props: Example1Props) {
       header={
         <>
           <h1>2048</h1>
-          {hasLicense === true && <ReleaseLicense />}
+          {hasLicense === true && <ReleaseLicense licensedItem={EXAMPLE_1_LICENSED_ITEM} licenseStatus={licenseStatus} updateLicenseStatus={updateLicenseStatus} authentication={authentication} setAuthentication={setAuthentication}/>}
         </>
       }
     >
