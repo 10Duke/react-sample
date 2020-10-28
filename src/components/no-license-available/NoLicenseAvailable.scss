@@ -1,0 +1,26 @@
+@import "../../scss/component-base";
+
+.no-license-available
+{
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($dark, 0.5);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+
+  & > *:only-child
+  {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    background-color: #000;
+    padding: map-get($spacers, 4);
+    text-align: center;
+  }
+}

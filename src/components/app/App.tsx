@@ -34,12 +34,12 @@ export interface AuthProps {
 }
 
 interface LicenseStatus {
-    [licensedItem: string]: LicenseCheckResult|undefined
+    [licensedItem: string]: LicenseCheckResult
 }
 
 export interface LicenseProps {
     licenseStatus: LicenseStatus,
-    updateLicenseStatus: (licensedItem: string, status: LicenseCheckResult) => void
+    updateLicenseStatus: (licensedItem: string, status: LicenseCheckResult|undefined) => void
 }
 /**
  * Main app, responsible for storing authentication status and routing as well as main navigation.
@@ -56,7 +56,11 @@ function App() {
         >({});
     const updateLicenseStatus = (licensedItem: string, status: LicenseCheckResult|undefined) => {
         const updatedState = _.cloneDeep(licenseStatus);
-        updatedState[licensedItem] = status;
+        if (status !== undefined) {
+            updatedState[licensedItem] = status;
+        } else {
+            delete updatedState[licensedItem];
+        }
         setLicenseStatus(updatedState);
     };
     const setAuthentication = (a?:Authentication, navigateTo?:string) => {
@@ -155,10 +159,10 @@ function App() {
                         <Example1Page {...authProps} {...licenseProps} />
                     </Route>
                     <Route path="/ex2">
-                        <Example2Page {...authProps} />
+                        <Example2Page {...authProps} {...licenseProps} />
                     </Route>
                     <Route path="/ex3">
-                        <Example3Page {...authProps} />
+                        <Example3Page {...authProps} {...licenseProps} />
                     </Route>
 
                 </Switch>
