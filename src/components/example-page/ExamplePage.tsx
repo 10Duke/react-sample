@@ -1,50 +1,43 @@
 import React from "react";
-import { AuthProps, LicenseProps } from "../app";
+import {AuthProps, ExampleContent, LicenseProps} from "../app";
 import Page from "../page";
 import LoginToContinue from "../login-to-continue";
-import ReleaseLicense from "../release-license";
 import GetLicense from "../get-license";
+import ReleaseLicense from "../release-license";
 import NoLicenseAvailable from "../no-license-available";
-// import GetLicense from "../get-license";
-// import ReleaseLicense from "../release-license";
 
-/**
- * Name of licensed item required for accessing content of this example page.
- */
-const EXAMPLE_2_LICENSED_ITEM = "Pacman";
-
-interface Example2Props extends AuthProps, LicenseProps {}
+interface ExampleProps extends Pick<AuthProps, 'authentication'>, LicenseProps, ExampleContent {}
 
 /**
  * Renders example content or login-to-continue
  * @param props
  * @constructor
  */
-function Example2Page(props: Example2Props) {
+function ExamplePage(props: ExampleProps) {
   const {
-    authentication,
+    licenseKey,
+    label,
+    url,
     licenseStatus,
     updateLicenseStatus,
-    setAuthentication,
+    authentication,
   } = props;
-  const licensedItem = EXAMPLE_2_LICENSED_ITEM;
-  const hasLicense = licenseStatus[licensedItem]
-    ? licenseStatus[licensedItem].hasLicense(licensedItem)
+  const hasLicense = licenseStatus[licenseKey]
+    ? licenseStatus[licenseKey].hasLicense(licenseKey)
     : undefined;
 
   return (
     <Page
-      data-test-page-product-2
+      data-test-page-product={licenseKey}
       header={
         <>
-          <h1>Pacman Canvas</h1>
+          <h1>{label}</h1>
           {hasLicense === true && (
             <ReleaseLicense
-              licensedItem={EXAMPLE_2_LICENSED_ITEM}
+              licensedItem={licenseKey}
               licenseStatus={licenseStatus}
               updateLicenseStatus={updateLicenseStatus}
               authentication={authentication}
-              setAuthentication={setAuthentication}
             />
           )}
         </>
@@ -52,14 +45,12 @@ function Example2Page(props: Example2Props) {
     >
       {authentication && (
         <>
-          <iframe src={"/pacman-canvas/index.html"} />
+          <iframe src={url} title={label}/>
           {hasLicense === undefined && (
             <GetLicense
-              licensedItem={EXAMPLE_2_LICENSED_ITEM}
-              licenseStatus={licenseStatus}
+              licensedItem={licenseKey}
               updateLicenseStatus={updateLicenseStatus}
               authentication={authentication}
-              setAuthentication={setAuthentication}
             />
           )}
           {hasLicense === false && <NoLicenseAvailable />}
@@ -70,4 +61,4 @@ function Example2Page(props: Example2Props) {
   );
 }
 
-export default Example2Page;
+export default ExamplePage;

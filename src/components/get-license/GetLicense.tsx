@@ -4,15 +4,19 @@ import {LicenseProps} from "../app";
 import {AuthProps} from "../app";
 import createLicenseChecker from "../../authn/createLicenseChecker";
 
-interface GetLicenseProps extends LicenseProps, AuthProps {
-    licensedItem: string,
+interface GetLicenseProps extends Pick<LicenseProps, 'updateLicenseStatus'>, Pick<AuthProps, 'authentication'> {
+    licensedItem: string;
 };
 /**
  * Component for rendering a get license button with content covering mask on top of actual content.
  * @constructor
  */
 function GetLicense(props: GetLicenseProps) {
-    const {authentication, licensedItem, updateLicenseStatus} = props;
+    const {
+        authentication,
+        licensedItem,
+        updateLicenseStatus,
+    } = props;
     const checkLicense = () => {
         if (authentication) {
             const licenseChecker = createLicenseChecker(

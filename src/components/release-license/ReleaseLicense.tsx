@@ -2,7 +2,7 @@ import React from "react";
 import { AuthProps, LicenseProps } from "../app";
 import createLicenseChecker from "../../authn/createLicenseChecker";
 
-interface ReleaseLicenseProps extends LicenseProps, AuthProps {
+interface ReleaseLicenseProps extends LicenseProps, Pick<AuthProps, 'authentication'> {
   licensedItem: string;
 }
 /**
@@ -21,10 +21,13 @@ function ReleaseLicense(props: ReleaseLicenseProps) {
       const licenseChecker = createLicenseChecker(
         authentication.getAccessToken()
       );
+      const leaseId = licenseStatus[licensedItem].jti;
       licenseChecker
-        .releaseLicense(licenseStatus[licensedItem].jti)
+        .releaseLicense(leaseId)
         .then((result) => {
-          updateLicenseStatus(licensedItem, undefined);
+          if (result.isReleased(leaseId)) {
+            updateLicenseStatus(licensedItem, undefined);
+          }
         });
     }
   };
