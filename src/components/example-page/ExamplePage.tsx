@@ -1,25 +1,12 @@
 import React from "react";
-import { AuthProps, LicenseProps } from "../app";
+import {AuthProps, ExampleContent, LicenseProps} from "../app";
 import Page from "../page";
 import LoginToContinue from "../login-to-continue";
 import GetLicense from "../get-license";
 import ReleaseLicense from "../release-license";
 import NoLicenseAvailable from "../no-license-available";
 
-interface ExampleProps extends AuthProps, LicenseProps {
-  /**
-   * Licensed item key for licence check/consumption/release
-   */
-  licenseKey: string;
-  /**
-   * Label of the item for the header
-   */
-  label: string;
-  /**
-   * Src url for the item
-   */
-  url: string;
-}
+interface ExampleProps extends Pick<AuthProps, 'authentication'>, LicenseProps, ExampleContent {}
 
 /**
  * Renders example content or login-to-continue
@@ -34,7 +21,6 @@ function ExamplePage(props: ExampleProps) {
     licenseStatus,
     updateLicenseStatus,
     authentication,
-    setAuthentication,
   } = props;
   const hasLicense = licenseStatus[licenseKey]
     ? licenseStatus[licenseKey].hasLicense(licenseKey)
@@ -52,7 +38,6 @@ function ExamplePage(props: ExampleProps) {
               licenseStatus={licenseStatus}
               updateLicenseStatus={updateLicenseStatus}
               authentication={authentication}
-              setAuthentication={setAuthentication}
             />
           )}
         </>
@@ -64,10 +49,8 @@ function ExamplePage(props: ExampleProps) {
           {hasLicense === undefined && (
             <GetLicense
               licensedItem={licenseKey}
-              licenseStatus={licenseStatus}
               updateLicenseStatus={updateLicenseStatus}
               authentication={authentication}
-              setAuthentication={setAuthentication}
             />
           )}
           {hasLicense === false && <NoLicenseAvailable />}

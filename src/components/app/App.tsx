@@ -264,11 +264,9 @@ function App() {
                 return (
                     <Route path={PATH_PREFIX + ex.licenseKey} key={ex.licenseKey}>
                       <ExamplePage
-                          label={ex.label}
-                          licenseKey={ex.licenseKey}
-                          url={ex.url}
-                          {...authProps}
                           {...licenseProps}
+                          {...ex}
+                          authentication={authProps.authentication}
                       />
                     </Route>
                 )

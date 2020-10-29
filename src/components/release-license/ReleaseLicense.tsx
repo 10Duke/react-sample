@@ -2,7 +2,7 @@ import React from "react";
 import { AuthProps, LicenseProps } from "../app";
 import createLicenseChecker from "../../authn/createLicenseChecker";
 
-interface ReleaseLicenseProps extends LicenseProps, AuthProps {
+interface ReleaseLicenseProps extends LicenseProps, Pick<AuthProps, 'authentication'> {
   licensedItem: string;
 }
 /**
