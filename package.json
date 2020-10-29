@@ -32,7 +32,26 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "overrides": [
+      {
+        "files": ["**/*.ts?(x)"],
+        "rules": {
+          "jsx-a11y/anchor-is-valid": [
+            "warn",
+            {
+              "components": [
+                "LinkContainer",
+                "Link"
+              ],
+              "specialLink": [
+                "to"
+              ]
+            }
+          ]
+        }
+      }
+    ]
   },
   "browserslist": {
     "production": [

@@ -33,7 +33,7 @@ function ExampleCard(props: ExampleCardProps) {
         <Link className="card example-card" to={link}>
             {image && (
                 <div className="card-img-top">
-                    <img src={image} alt="Card image cap" />
+                    <img src={image} alt="Screenshot" title="" />
                 </div>
             )}
         <div className="card-body">
