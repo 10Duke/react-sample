@@ -16,7 +16,6 @@
     "bootstrap": "^4.5.2",
     "debug": "^4.2.0",
     "jose-jwe-jws": "^0.2.2",
-    "lodash": "^4.17.20",
     "oidc-token-hash": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

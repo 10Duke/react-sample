@@ -15,7 +15,6 @@ import {LicenseCheckResult} from "../../authn/LicenseChecker";
 import ExamplePage from "../example-page";
 
 const ProfileIcon = require("./si_icon.svg");
-const _ = require("lodash");
 
 /**
  * Authentication related properties for components
@@ -90,22 +89,22 @@ const Examples: ExampleContent[] = [
     label: '2048',
     description: 'Join the numbers and get to the 2048 tile!',
     licenseKey: '2048',
-    url: '/2048/index.html',
-    image: '/2048/screenshot.png',
+    url: process.env.PUBLIC_URL + '/2048/index.html',
+    image: process.env.PUBLIC_URL + '/2048/screenshot.png',
   },
   {
     label: 'Pacman Canvas',
     description: 'An old classic, re-written in HTML5.',
     licenseKey: 'Pacman',
-    url: '/pacman-canvas/index.html',
-    image: '/pacman-canvas/img/instructions/instructions_scatter.PNG',
+    url: process.env.PUBLIC_URL + '/pacman-canvas/index.html',
+    image: process.env.PUBLIC_URL + '/pacman-canvas/img/instructions/instructions_scatter.PNG',
   },
   {
     label: 'React Simon Says',
     description: 'Click the blocks in the correct order as they light up.',
     licenseKey: 'SimonSays',
-    url: '/react-simon-says/index.html',
-    image: '/react-simon-says/screenshot.png',
+    url: process.env.PUBLIC_URL + '/react-simon-says/index.html',
+    image: process.env.PUBLIC_URL + '/react-simon-says/screenshot.png',
   },
 ];
 
@@ -127,7 +126,7 @@ function App() {
 
   const updateLicenseStatus = useMemo(
       () => (licensedItem: string, status: LicenseCheckResult | undefined) => {
-    const updatedState = _.cloneDeep(licenseStatus);
+    const updatedState = {...licenseStatus};
     if (status !== undefined) {
       updatedState[licensedItem] = status;
     } else {
