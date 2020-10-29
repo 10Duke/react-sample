@@ -4,7 +4,7 @@ import {AuthProps, ExampleContent} from "../app";
 import LoginToContinue from "../login-to-continue";
 import ExampleCard from "../example-card";
 
-interface HomeProps extends AuthProps {
+interface HomeProps extends Pick<AuthProps, 'authentication'> {
   content: ExampleContent[],
   pathPrefix: string,
 }
