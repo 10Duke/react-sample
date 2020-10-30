@@ -26,7 +26,34 @@ In the 10Duke service, this test application must be configured as an OAuth clie
 
 Now you can run the test client locally using `npm start` (see below).
 
-## Available Scripts
+## Building and publishing Docker image
+
+```
+# Build the image. This builds the test application first.
+docker build -t 10duke/duke-test-client:<version> .
+
+# If not already logged in, login to the 10Duke internal Docker repo (docker-private.10duke.com:8443)
+docker login -u <username> docker-private.10duke.com:8443
+
+# Tag for publishing to the 10Duke internal Docker repo (docker-private.10duke.com:8443)
+docker tag <imageId> docker-private.10duke.com:8443/10duke/duke-test-client:<version>
+docker tag <imageId> docker-private.10duke.com:8443/10duke/duke-test-client:latest
+
+# Push to the 10Duke internal Docker repo (docker-private.10duke.com:8443)
+docker push docker-private.10duke.com:8443/10duke/duke-test-client:<version>
+docker push docker-private.10duke.com:8443/10duke/duke-test-client:latest
+```
+
+## Using the image
+
+```
+# Pull image from the 10Duke internal Docker repo
+docker pull docker.10duke.com:8443/10duke/duke-test-client:latest
+# Run the image (in HTTPS port 48444)
+docker run -d -p 48444:443 docker-private.10duke.com:8443/10duke/duke-test-client:latest
+```
+
+## Available Scripts (as initialized by Create React App)
 
 In the project directory, you can run:
 
