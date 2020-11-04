@@ -318,10 +318,11 @@ export default class Authenticator {
   private async verifyIdToken(idToken: string): Promise<any> {
     const cryptographer = new Jose.WebCryptographer();
     cryptographer.setContentSignAlgorithm("RS256");
+    const signerPubKey = await this.getSignerPublicKey();
     const verifier = new Jose.JoseJWS.Verifier(
       cryptographer,
       idToken,
-      (keyId) => this.getSignerPublicKey()
+      (keyId) => new Promise<CryptoKey>((resolve) => resolve(signerPubKey))
     );
     let verificationResults: any = undefined;
     try {
@@ -404,7 +405,9 @@ export default class Authenticator {
    * Fetch signer keys from the server.
    */
   private async fetchKeys(): Promise<JWKRSA[]> {
-    const response = await fetch(this.jwskUri.toString());
+    const response = await fetch(this.jwskUri.toString(), {
+      method: "GET",
+    });
     if (response.ok) {
       return (await response.json())["keys"] as JWKRSA[];
     }
