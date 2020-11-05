@@ -6,33 +6,11 @@ This is a test / demo client for 10Duke Identity and Entitlement service. The ap
 
 Sample licensed features of the test client are FOSS games. This test client uses the 10Duke Entitlement service for determining if user logged in to the test client has license required for accessing each game. Licenses for these games should be configured in the 10Duke Entitlement service against which testing. The games and the respective licensed item names used for 10Duke license checks are given in the table below:
 
-| Licensed item | The game                                                              | License                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| ------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2048          | [2048](https://github.com/gabrielecirulli/2048)                       | [Beerware](https://en.wikipedia.org/wiki/Beerware)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| Pacman        | [pacman-canvas](https://github.com/platzhersh/pacman-canvas)          | <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Pacman Canvas</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://platzh1rsch.ch" property="cc:attributionName" rel="cc:attributionURL">Platzh1rsch</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/platzhersh/pacman-canvas" rel="dct:source">https://github.com/platzhersh/pacman-canvas</a>. |
-| SimonSays     | [react-simon-says](https://github.com/weslleyaraujo/react-simon-says) | [MIT](https://github.com/gabrielecirulli/2048/blob/master/LICENSE.txt):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-
-The MIT License (MIT)
-
-Copyright (c) 2014 Gabriele Cirulli
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. |
+| Licensed item | The game                                                              | License                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2048          | [2048](https://github.com/gabrielecirulli/2048)                       | [Beerware](https://en.wikipedia.org/wiki/Beerware) \/ [weslleyaraujo](https://weslleyaraujo.github.io/react-simon-says/)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Pacman        | [pacman-canvas](https://github.com/platzhersh/pacman-canvas)          | <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Pacman Canvas</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://platzh1rsch.ch" property="cc:attributionName" rel="cc:attributionURL">Platzh1rsch</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/platzhersh/pacman-canvas" rel="dct:source">https://github.com/platzhersh/pacman-canvas</a>.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| SimonSays     | [react-simon-says](https://github.com/weslleyaraujo/react-simon-says) | <a href="https://github.com/gabrielecirulli/2048/blob/master/LICENSE.txt">The MIT License (MIT)</a><br />Copyright (c) 2014 Gabriele Cirulli<br />Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br />The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br />THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. |
 
 ## Running locally (using dev server)
 
@@ -58,31 +36,28 @@ Now you can run the test client locally using `npm start` (see below).
 
 ## Building and publishing Docker image
 
-The
+The project comes with [Dockerfile](./Dockerfile) that can be used for building a Docker image with this application. Some basic commands for building and publishing the image are listed below:
 
 ```
-# Build the image. This builds the test application first.
+# Build the image
 docker build -t 10duke/duke-test-client:<version> .
 
-# If not already logged in, login to the 10Duke internal Docker repo (docker-private.10duke.com:8443)
-docker login -u <username> docker-private.10duke.com:8443
+# Tag for publishing to your internal Docker repo
+docker tag <imageId> docker-repo.example.com:<port>/10duke/duke-test-client:<version>
+docker tag <imageId> docker-repo.example.com:<port>/10duke/duke-test-client:latest
 
-# Tag for publishing to the 10Duke internal Docker repo (docker-private.10duke.com:8443)
-docker tag <imageId> docker-private.10duke.com:8443/10duke/duke-test-client:<version>
-docker tag <imageId> docker-private.10duke.com:8443/10duke/duke-test-client:latest
-
-# Push to the 10Duke internal Docker repo (docker-private.10duke.com:8443)
-docker push docker-private.10duke.com:8443/10duke/duke-test-client:<version>
-docker push docker-private.10duke.com:8443/10duke/duke-test-client:latest
+# Push to your internal Docker repo
+docker push docker-repo.example.com:<port>/10duke/duke-test-client:<version>
+docker push docker-repo.example.com:<port>/10duke/duke-test-client:latest
 ```
 
 ## Using the image
 
 ```
-# Pull image from the 10Duke internal Docker repo
-docker pull docker.10duke.com:8443/10duke/duke-test-client:latest
+# Pull image from your internal Docker repo
+docker pull docker-repo.example.com:<port>/10duke/duke-test-client:latest
 # Run the image (in HTTPS port 48444)
-docker run -d -p 48444:443 docker-private.10duke.com:8443/10duke/duke-test-client:latest
+docker run -d -p 48444:443 docker-repo.example.com:<port>/10duke/duke-test-client:latest
 ```
 
 ## Available Scripts (as initialized by Create React App)
