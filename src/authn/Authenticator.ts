@@ -344,6 +344,17 @@ export default class Authenticator {
         "signature verification failed"
       );
     }
+
+    // js-jose handles UTF-8 input incorrectly, fix encoding
+    verificationResult.payload = decodeURIComponent(
+      verificationResult.payload
+        .split("")
+        .map(
+          (c: string) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
+        )
+        .join("")
+    );
+
     return verificationResult;
   }
 
