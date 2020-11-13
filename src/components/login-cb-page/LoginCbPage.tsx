@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StartLoginResponse } from "../../authn/Authenticator";
+import { StartLoginResponse } from "@10duke/web-client-pkce";
 import createAuthenticator from "../../authn/createAuthenticator";
 import { AuthProps } from "../app";
 import useQuery from "../../utils/use-query";

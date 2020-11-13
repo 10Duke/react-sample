@@ -1,4 +1,4 @@
-import LicenseChecker from "./LicenseChecker";
+import { LicenseChecker } from "@10duke/web-client-pkce";
 
 import _debug from "debug";
 const debug = _debug("createLicenseChecker");

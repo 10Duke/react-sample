@@ -1,4 +1,4 @@
-import Authenticator from "./Authenticator";
+import { Authenticator } from "@10duke/web-client-pkce";
 
 import _debug from "debug";
 const debug = _debug("createAuthenticator");
