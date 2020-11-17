@@ -15,7 +15,7 @@ export default function createAuthenticator(
   );
   debug("srvBase: %s", srvBase.toString());
   const entAuthzUrl = new URL(
-    process.env.REACT_APP_SRV_ENT_AUTHZ_URL || "/authz",
+    process.env.REACT_APP_SRV_ENT_AUTHZ_URL || "/authz/",
     srvBase
   );
   debug("ent authzUrl: %s", entAuthzUrl.toString());
