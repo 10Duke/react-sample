@@ -24,7 +24,7 @@ export default function createAuthenticator(
     srvBase
   );
   debug("jwksUrl: %s", jwksUrl.toString());
-  let hw = process.env.REACT_APP_HW_ID;
+  let hw: string | undefined = process.env.REACT_APP_HW_ID || "example-hw-1";
   if (hw && hw.trim() === "") {
     hw = undefined;
   }
