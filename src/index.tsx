@@ -15,12 +15,14 @@ debug.enable("*");
 localStorage.setItem("debug", "*");
 const container = document.getElementById('root');
 if (!!container) {
-  const root = createRoot(container); // createRoot(container!) if you use TypeScript
-// Router moved here as location access is needed in App, and it's only accessible from router children
+  const root = createRoot(container);
+  // Router moved here as location access is needed in App, and it's only accessible from router children
   root.render(
+      <React.StrictMode>
         <Router>
           <App/>
-        </Router>);
+        </Router>
+      </React.StrictMode>);
 }
 
 

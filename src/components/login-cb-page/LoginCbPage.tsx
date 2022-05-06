@@ -29,8 +29,8 @@ function LoginCbPage(props: LoginCbProps) {
       throw Error("missing stored login state");
     }
     const startLoginState = JSON.parse(storedLoginState) as StartLoginResponse;
-    localStorage.removeItem("startLoginState");
-
+    // NOTE: clearing the localStorage startLoginState would cause the login concept to fail with development builds,
+    // as this effect is hit twice in succession due to react.strict-mode
     const authenticator = createAuthenticator();
     authenticator
       .completeAuthentication(startLoginState, code, state)

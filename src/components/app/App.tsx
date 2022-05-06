@@ -147,6 +147,13 @@ function App() {
         (location.pathname.endsWith("/login") ||
           location.pathname.endsWith("/logincb"))
       ) {
+        // Clear the data stored when login started, has to be here as the actual login callback is invoked
+        // twice (React.strictMode) with development builds. And the second pass would fail without this data.
+        if (location.pathname.endsWith("/logincb")) {
+          if (localStorage.getItem("startLoginState")) {
+            localStorage.removeItem("startLoginState");
+          }
+        }
         if (navigateTo) {
           navigate(navigateTo);
         } else {
