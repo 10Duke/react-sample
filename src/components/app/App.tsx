@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 
 import { Authentication } from "@10duke/web-client-pkce";
@@ -14,7 +14,6 @@ import "./App.scss";
 import { LicenseCheckResult } from "@10duke/web-client-pkce";
 import ExamplePage from "../example-page";
 
-const ProfileIcon = require("./si_icon.svg");
 
 /**
  * Authentication related properties for components
@@ -121,7 +120,7 @@ const PATH_PREFIX = "/play/";
  */
 function App() {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [authentication, setAuthenticationState] = useState<
     Authentication | undefined
   >(undefined);
@@ -148,30 +147,42 @@ function App() {
         (location.pathname.endsWith("/login") ||
           location.pathname.endsWith("/logincb"))
       ) {
+        // Clear the data stored when login started, has to be here as the actual login callback is invoked
+        // twice (React.strictMode) with development builds. And the second pass would fail without this data.
+        if (location.pathname.endsWith("/logincb")) {
+          if (localStorage.getItem("startLoginState")) {
+            localStorage.removeItem("startLoginState");
+          }
+        }
         if (navigateTo) {
-          history.push(navigateTo);
+          navigate(navigateTo);
         } else {
-          history.push("/");
+          navigate("/");
         }
       } else if (!a && location.pathname.endsWith("/signoutcb")) {
         if (navigateTo) {
-          history.push(navigateTo);
+          navigate(navigateTo);
         } else {
-          history.push("/");
+          navigate("/");
         }
       }
     },
-    [setAuthenticationState, history, location]
+    [setAuthenticationState, navigate, location]
   );
 
   const authProps: AuthProps = { authentication, setAuthentication };
   const licenseProps: LicenseProps = { licenseStatus, updateLicenseStatus };
   const [navbarCollapsed, setNavbarCollapsed] = useState(true);
-
+  /**
+   * NOTE: The route config is not what we intended, but after update it seems that what used to be the default is no
+   * longer even possible. Every "/*" at the end of the paths was added as only available option to match what used to
+   * be, ie. route that matches if the beginning matches, regardless of what follows. This new pattern forces us to
+   * include the "/" which is always wrong.
+   */
   return (
     <>
       <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <LinkContainer to="/" exact={true}>
+        <LinkContainer to="/">
           <a className="navbar-brand">
             <img src="/logo.svg#arcade" alt="10Duke" title="" />
             <span className="brand-text">Arcade</span>
@@ -200,7 +211,7 @@ function App() {
         >
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <LinkContainer to="/" exact={true}>
+              <LinkContainer to="/">
                 <a data-test-navbar-home className={"nav-link"}>
                   Home
                 </a>
@@ -210,7 +221,7 @@ function App() {
           <ul className="navbar-nav ml-auto">
             {!authentication && (
               <li className="nav-item">
-                <LinkContainer to="/login" exact={true}>
+                <LinkContainer to="/login">
                   <a data-test-navbar-login className={"nav-link"}>
                     Login
                   </a>
@@ -224,14 +235,14 @@ function App() {
                   className="navbar-text profile mr-md-4"
                 >
                   <img
-                    src={ProfileIcon}
+                    src={'/si_icon.svg'}
                     className="d-inline-block mr-3"
                     alt={"(•_•)"}
                   />
                   {authentication.getUserDisplayName()}
                 </li>
                 <li className="nav-item">
-                  <LinkContainer to="/logout" exact={true}>
+                  <LinkContainer to="/logout">
                     <a
                       data-test-navbar-logout
                       className={
@@ -251,38 +262,38 @@ function App() {
         role="main"
         className="container-fluid flex-grow-1 d-flex flex-column"
       >
-        <Switch>
-          <Route exact path="/">
+        <Routes>
+          <Route path="/" element={
             <HomePage
               {...authProps}
               content={Examples}
               pathPrefix={PATH_PREFIX}
             />
-          </Route>
-          <Route path="/login">
+          } />
+          <Route path="/login/*" element={
             <LoginPage {...authProps} />
-          </Route>
-          <Route path="/logincb">
+          } />
+          <Route path="/logincb/*" element={
             <LoginCbPage {...authProps} />
-          </Route>
-          <Route path="/logout">
+            } />
+          <Route path="/logout/*" element={
             <LogoutPage {...authProps} />
-          </Route>
-          <Route path="/signoutcb">
+            } />
+          <Route path="/signoutcb/*" element={
             <SignoutCbPage {...authProps} />
-          </Route>
+            } />
           {Examples.map((ex) => {
             return (
-              <Route path={PATH_PREFIX + ex.licenseKey} key={ex.licenseKey}>
+              <Route path={PATH_PREFIX + ex.licenseKey + '/*'} key={ex.licenseKey} element={
                 <ExamplePage
                   {...licenseProps}
                   {...ex}
                   authentication={authProps.authentication}
                 />
-              </Route>
+                } />
             );
           })}
-        </Switch>
+        </Routes>
       </main>
     </>
   );
