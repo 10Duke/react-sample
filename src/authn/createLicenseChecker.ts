@@ -20,7 +20,7 @@ export default function createAuthenticator(
   );
   debug("ent authzUrl: %s", entAuthzUrl.toString());
   const jwksUrl = new URL(
-    process.env.REACT_APP_SRV_JWKS_URL || "/.well-known/jwks.json",
+    process.env.REACT_APP_SRV_JWKS_URL || "/user/.well-known/jwks.json",
     srvBase
   );
   debug("jwksUrl: %s", jwksUrl.toString());
